@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGRI AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #e8f5e9; /* Light green background */
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        form {
+            display: grid;
+            gap: 20px;
+        }
+        @media (min-width: 600px) {
+            form {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input[type="radio"], input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+        button {
+            background-color: #4caf50; /* Green button to match theme */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            grid-column: 1 / -1;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #recommendations {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f1f8e9; /* Light green background for recommendations */
+            border-radius: 8px;
+            display: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>AGRI AI</h1>
+            <p>Enter your agricultural parameters for personalized recommendations</p>
+            <form id="farmForm">
+                <div>
+                    <label for="cropName">Crop Name:</label>
+                    <select id="cropName" name="cropName" required>
+                        <option value="">Select a crop</option>
+                        <option value="wheat">Wheat</option>
+                        <option value="rice">Rice</option>
+                        <option value="corn">Corn</option>
+                        <option value="soybean">Soybean</option>
+                        <option value="cotton">Cotton</option>
+                        <option value="corn">Corn</option>
+                        <option value="arecanut">Arecanut</option>
+                        <option value="arhar_tur">Arhar/Tur</option>
+                        <option value="castor_seed">Castor seed</option>
+                        <option value="coconut">Coconut</option>
+                        <option value="dry_chillies">Dry chillies</option>
+                        <option value="gram">Gram</option>
+                        <option value="jute">Jute</option>
+                        <option value="linseed">Linseed</option>
+                        <option value="maize">Maize</option>
+                        <option value="mesta">Mesta</option>
+                        <option value="niger_seed">Niger seed</option>
+                        <option value="onion">Onion</option>
+                        <option value="other_rabi_pulses">Other Rabi pulses</option>
+                        <option value="potato">Potato</option>
+                        <option value="rapeseed_mustard">Rapeseed & Mustard</option>
+                        <option value="sesamum">Sesamum</option>
+                        <option value="small_millets">Small millets</option>
+                        <option value="sugarcane">Sugarcane</option>
+                        <option value="sweet_potato">Sweet potato</option>
+                        <option value="tapioca">Tapioca</option>
+                        <option value="tobacco">Tobacco</option>
+                        <option value="turmeric">Turmeric</option>
+                        <option value="bajra">Bajra</option>
+                        <option value="black_pepper">Black pepper</option>
+                        <option value="cardamom">Cardamom</option>
+                        <option value="coriander">Coriander</option>
+                        <option value="garlic">Garlic</option>
+                        <option value="ginger">Ginger</option>
+                        <option value="groundnut">Groundnut</option>
+                        <option value="horse_gram">Horse-gram</option>
+                        <option value="jowar">Jowar</option>
+                        <option value="ragi">Ragi</option>
+                        <option value="cashewnut">Cashewnut</option>
+                        <option value="banana">Banana</option>
+                        <option value="soyabean">Soyabean</option>
+                        <option value="barley">Barley</option>
+                        <option value="khesari">Khesari</option>
+                        <option value="masoor">Masoor</option>
+                        <option value="moong">Moong (Green Gram)</option>
+                        <option value="other_kharif_pulses">Other Kharif pulses</option>
+                        <option value="safflower">Safflower</option>
+                        <option value="sannhamp">Sannhamp</option>
+                        <option value="sunflower">Sunflower</option>
+                        <option value="urad">Urad</option>
+                        <option value="peas_beans">Peas & Beans (Pulses)</option>
+                        <option value="other_oilseeds">Other oilseeds</option>
+                        <option value="other_cereals">Other Cereals</option>
+                        <option value="cowpea">Cowpea (Lobia)</option>
+                        <option value="oilseeds_total">Oilseeds total</option>
+                        <option value="guar_seed">Guar seed</option>
+                        <option value="other_summer_pulses">Other Summer Pulses</option>
+                        <option value="moth">Moth</option>
+                    </select>
+                    <input type="text" id="customCrop" name="customCrop" placeholder="Or enter custom crop">
+                </div>
+
+                <div>
+                    <label for="seedType">Seed Type:</label>
+                    <select id="seedType" name="seedType" required>
+                        <option value="">Select seed type</option>
+                        <option value="hybrid">Hybrid</option>
+                        <option value="heirloom">Heirloom</option>
+                        <option value="gmo">GMO</option>
+                        <option value="organic">Organic</option>
+                        <option value="chinsurah_rice_iet_19140">(Chinsurah Rice (IET 19140) (CNI 383-5-11))</option>
+                        <option value="igkvr1_iet_19569">IGKVR-1 (IET 19569)</option>
+                        <option value="igkvr2_iet_19795">IGKVR-2 (IET 19795)</option>
+                        <option value="cr_dhan_401_reeta">CR Dhan 401 (REETA)</option>
+                        <option value="cr_dhan_601_iet_18558">CR Dhan 601 (IET 18558)</option>
+                        <option value="cr_dhan_501_iet_19189">CR Dhan 501 (IET 19189)</option>
+                        <option value="rc_maniphou_11_iet_20193">RC Maniphou 11 (IET 20193)</option>
+                        <option value="mpo_jw_1215">MPO(JW) 1215 (MPO 1215)</option>
+                        <option value="macs_6222">MACS 6222</option>
+                        <option value="pdw_314">PDW 314</option>
+                        <option value="dbw_39">DBW39</option>
+                        <option value="vl_gehun_907">VL Gehun 907 (VL 907)</option>
+                        <option value="pusa_suketi_hs_507">Pusa Suketi HS 507</option>
+                        <option value="pusa_prachi_hi_1563">Pusa Prachi (HI 1563)</option>
+                        <option value="whd_943">WHD 943</option>
+                        <option value="netravati_niaw_1415">Netravati (NIAW 1415)</option>
+                        <option value="bh_902">BH-902</option>
+                        <option value="dwrb_73">DWRB 73</option>
+                        <option value="pusa_losar_bh_380">Pusa Losar (BH-380)</option>
+                        <option value="hsc1">HSC1</option>
+                        <option value="hqpm_4">HQPM-4</option>
+                        <option value="mch_36_hybrid_dkc_9099">MCH 36 (Hybrid) (DKC 9099)</option>
+                        <option value="dhm_119_bh_4062">DHM 119 (BH 4062)</option>
+                        <option value="pmh_4_jh_31153">PMH 4 (JH 31153)</option>
+                        <option value="pmh_5_jh_3110">PMH 5 (JH 3110)</option>
+                        <option value="nandi_65_mh_1549">Nandi-65 (MH-1549)</option>
+                        <option value="nandi_61_mh_1548">Nandi-61 (MH-1548)</option>
+                        <option value="86m64_msh_203_hybrid">86M64 (MSH 203) (Hybrid)</option>
+                        <option value="mh_1540_86m64_hybrid">MH 1540 (86M64) (Hybrid)</option>
+                        <option value="mh_1541_86m53_hybrid">MH 1541 (86M53) (Hybrid)</option>
+                        <option value="rhb_177_mh_1486">RHB 177 (MH 1486)</option>
+                        <option value="hhb_226_mh_1479">HHB 226 (MH 1479)</option>
+                        <option value="gpu_67">GPU 67</option>
+                        <option value="drmr_601_nrcdr_601">DRMR 601 (NRCDR 601)</option>
+                        <option value="pusa_mustard_26_npj_113">Pusa Mustard 26 (NPJ-113)</option>
+                        <option value="pusa_mustard_27_ej_17">Pusa Mustard 27 (EJ-17)</option>
+                        <option value="coral_432_pac_432_hybrid">CORAL 432 (PAC 432) (Hybrid)</option>
+                        <option value="pitambari_rysk_05_02">Pitambari (RYSK-05-02)</option>
+                        <option value="jls_67_shival">JLS-67 (Shival)</option>
+                        <option value="ruchi_lck_5021">Ruchi (LCK 5021)</option>
+                        <option value="jls_73_sls_73">JLS-73 (SLS-73)</option>
+                        <option value="girnar_3_pbs_12160">Girnar-3 (PBS 12160)</option>
+                        <option value="kadiri_harithandhra_k_1319">Kadiri Harithandhra (K 1319)</option>
+                        <option value="gpbd_5">GPBD 5</option>
+                        <option value="rajasthan_till_351_rt_351">Rajasthan Till 351 (RT 351)</option>
+                        <option value="ujjawal_ipck2004_29">Ujjawal (IPCK2004-29)</option>
+                        <option value="pkv_kabuli_4">PKV KABULI-4</option>
+                        <option value="mnk_1">MNK-1</option>
+                        <option value="pant_lentil_8_l_063">Pant Lentil-8 (Pant L-063)</option>
+                        <option value="pant_lentil_7_l_024">Pant Lentil-7 (Pant L-024)</option>
+                        <option value="aman_ipf_5_19">Aman (IPF 5-19)</option>
+                        <option value="gomati_trcp_8">GOMATI (TRCP-8)</option>
+                        <option value="dantiwada_fieldpea_1_sknp_04_09">Dantiwada Fieldpea 1 (SKNP 04-09)</option>
+                        <option value="gujarat_rajmash_1_dpr_88_1_2">Gujarat Rajmash-1 (DPR 88-1-2)</option>
+                        <option value="pkv_akm_4_akm_9904">PKV AKM-4 (AKM-9904)</option>
+                        <option value="mash_479_kug_479">Mash 479 (KUG 479)</option>
+                        <option value="mash_391_lu_391">Mash 391 (LU 391)</option>
+                        <option value="hg_884">HG 884</option>
+                        <option value="hg_2_20">HG 2-20</option>
+                        <option value="cridalatha_crhg_4">CRIDALATHA (CRHG-4)</option>
+                        <option value="karan_6_co_0239">Karan 6 (Co 0239)</option>
+                        <option value="karan_5_co_0124">Karan 5 (Co 0124)</option>
+                        <option value="co_0218">Co-0218</option>
+                        <option value="phule_jaywant_rbn_13">Phule Jaywant (RBN-13)</option>
+                        <option value="narendra_jayee_1_ndo_1">Narendra Jayee -1 (NDO - 1)</option>
+                        <option value="os_346">OS 346</option>
+                        <option value="jo_03_91_sc">JO 03-91 (SC)</option>
+                        <option value="ec_178182">EC 178182</option>
+                        <option value="upc_628">UPC 628</option>
+                        <option value="sudhanshu_jbo_1">SUDHANGSU (JBO-1)</option>
+                        <option value="arpita_jbc_5">ARPITA (JBC-5)</option>
+                        <option value="sneha_jrm_3">SNEHA (JRM-3)</option>
+                        <option value="shrestha_jrm_5">SHRESTHA (JRM-5)</option>
+                        <option value="cnh012">CNH012</option>
+                        <option value="cicr_3_cisa_614">CICR-3 (CISA 614)</option>
+                        <option value="vbch_2231">VBCH 2231</option>
+                        <option value="fdk_124">FDK 124</option>
+                    </select>
+                    <input type="text" id="customSeed" name="customSeed" placeholder="Or enter custom seed type">
+                </div>
+
+                <div>
+                    <label for="areaOfField">Area of Field (acres):</label>
+                    <input type="number" id="areaOfField" name="areaOfField" placeholder="Enter field size" required>
+                </div>
+
+                <div>
+                    <label for="state">State:</label>
+                    <select id="state" name="state" required>
+                        <option value="">Select state</option>
+                        <option value="andhra_pradesh">Andhra Pradesh</option>
+                        <option value="arunachal_pradesh">Arunachal Pradesh</option>
+                        <option value="assam">Assam</option>
+                        <option value="bihar">Bihar</option>
+                        <option value="chhattisgarh">Chhattisgarh</option>
+                        <option value="goa">Goa</option>
+                        <option value="gujarat">Gujarat</option>
+                        <option value="haryana">Haryana</option>
+                        <option value="himachal_pradesh">Himachal Pradesh</option>
+                        <option value="jharkhand">Jharkhand</option>
+                        <option value="karnataka">Karnataka</option>
+                        <option value="kerala">Kerala</option>
+                        <option value="madhya_pradesh">Madhya Pradesh</option>
+                        <option value="maharashtra">Maharashtra</option>
+                        <option value="manipur">Manipur</option>
+                        <option value="meghalaya">Meghalaya</option>
+                        <option value="mizoram">Mizoram</option>
+                        <option value="nagaland">Nagaland</option>
+                        <option value="odisha">Odisha</option>
+                        <option value="punjab">Punjab</option>
+                        <option value="rajasthan">Rajasthan</option>
+                        <option value="sikkim">Sikkim</option>
+                        <option value="tamil_nadu">Tamil Nadu</option>
+                        <option value="telangana">Telangana</option>
+                        <option value="tripura">Tripura</option>
+                        <option value="uttar_pradesh">Uttar Pradesh</option>
+                        <option value="uttarakhand">Uttarakhand</option>
+                        <option value="west_bengal">West Bengal</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Soil Type:</label>
+                    <div>
+                        <input type="radio" id="sandy" name="soilType" value="sandy" required>
+                        <label for="sandy">Sandy</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="loamy" name="soilType" value="loamy">
+                        <label for="loamy">Loamy</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="clay" name="soilType" value="clay">
+                        <label for="clay">Clay</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="mountain soil" name="soilType" value="mountain soil">
+                        <label for="mountain soil">mountain soil</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Alluvial Soil" name="soilType" value="Alluvial Soil">
+                        <label for="Alluvial Soil">Alluvial Soil</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Red and Yellow Soil" name="soilType" value="Red and Yellow Soil">
+                        <label for="Red and Yellow Soil">Red and Yellow Soil</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Laterite Soil" name="soilType" value="Laterite Soil">
+                        <label for="Laterite Soil">Laterite Soil</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Desert Soil" name="soilType" value="Desert Soil">
+                        <label for="Desert Soil">Desert Soil</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Black Soil" name="soilType" value="Black Soil">
+                        <label for="Black Soil">Black Soil</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Coastal Sandy Soil" name="soilType" value="Coastal Sandy Soil">
+                        <label for="Coastal Sandy Soil">Coastal Sandy Soil</label>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="soilPH">Soil pH:</label>
+                    <input type="number" id="soilPH" name="soilPH" step="0.1" placeholder="Enter soil pH">
+                </div>
+
+                <div>
+                    <label for="nitrogen">Nitrogen (N) Level:</label>
+                    <input type="number" id="nitrogen" name="nitrogen" placeholder="Enter nitrogen level">
+                </div>
+
+                <div>
+                    <label for="phosphorus">Phosphorus (P) Level:</label>
+                    <input type="number" id="phosphorus" name="phosphorus" placeholder="Enter phosphorus level">
+                </div>
+
+                <div>
+                    <label for="potassium">Potassium (K) Level:</label>
+                    <input type="number" id="potassium" name="potassium" placeholder="Enter potassium level">
+                </div>
+
+                <div>
+                    <input type="checkbox" id="isAcidic" name="isAcidic">
+                    <label for="isAcidic">Soil is Acidic</label>
+                </div>
+
+                <div>
+                    <label for="season">Season:</label>
+                    <select id="season" name="season" required>
+                        <option value="">Select season</option>
+                        <option value="summer or Zaid crops">Summer or Zaid crops</option>
+                        <option value="winter or Rabi Crops">Winter or Rabi crops</option>
+                        <option value="rainy or Kharif crops">Rainy or Kharif crops</option>
+                    </select>
+                </div>
+
+                <button type="submit">Get Recommendations</button>
+            </form>
+
+            <div id="recommendations"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('farmForm');
+            const recommendationsDiv = document.getElementById('recommendations');
+        
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+        
+                // Send data to the backend
+                const response = await fetch('/recommend', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+                const result = await response.json();
+        
+                // Display recommendations
+                recommendationsDiv.innerHTML = `
+                    <h3>Recommendations:</h3>
+                    <p>${result.recommendations}</p>
+                `;
+                recommendationsDiv.style.display = 'block';
+            });
+        });               
+    </script>
+</body>
+</html>
